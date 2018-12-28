@@ -13,8 +13,8 @@ Installation de cron.
 Role Variables
 --------------
 
-<pre><code>\- user
-\- user_to_delete
+<pre><code>- user
+- user_to_delete
 </code></pre>
 
 Dependencies
