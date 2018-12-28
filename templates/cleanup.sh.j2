@@ -1,0 +1,18 @@
+#! /bin/sh
+#
+# Cleanup de la configuration basique Ansible rpi
+#
+
+# Changer le mot de passe root
+echo "root:{{ root_password }}" | sudo chpasswd
+
+# Supprimer le dossier de l'utilisateur de configuration
+rm -r /home/{{ users_to_delete }}
+
+# Vider le crontab
+crontab -r
+
+# Suppression de ce script
+rm /home/{{ users_name }}/cleanup.sh
+
+exit 0

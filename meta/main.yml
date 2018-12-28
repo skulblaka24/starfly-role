@@ -1,0 +1,11 @@
+galaxy_info:
+  author: Starfly Env Team
+  description: Script automatique de nettoyage de l'ancien utilisateur principal de la machine et de son dossier home. Utilisateur dont Ansible se sert pour se connecter.
+
+  license: license (GPLv2, CC-BY, etc)
+
+  min_ansible_version: 2.4
+
+  galaxy_tags: []
+
+dependencies: []

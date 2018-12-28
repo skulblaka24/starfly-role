@@ -1,0 +1,38 @@
+---
+# tasks file for cleanup
+
+- name: Copie du script de cleanup
+  template:
+    src: cleanup.sh.j2
+    dest: /home/{{ users_name }}/cleanup.sh
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Tâches de nettoyage automatique au redémarrage
+  cron:
+    name: "Tâches de nettoyage automatique au redémarrage"
+    minute: '*/1'
+    job: "/home/{{ users_name }}/cleanup.sh"
+    user: root
+
+- name: Génération du locale fr
+  shell: locale-gen fr_FR.UTF-8
+  when: ansible_lsb.id == 'Raspbian'
+
+- name: Création du fichier pour empêcher le locale check
+  file:
+    path: /var/lib/cloud/instance/locale-check.skip
+    state: touch
+  when: ansible_lsb.id == 'Raspbian'
+
+- name: Suppression du nom d'utilisateur et redemarrage
+  shell: userdel -f '{{ users_to_delete }}' && shutdown -r 0
+  failed_when: false
+  async: 1
+  poll: 0
+
+- debug: 
+    msg: "L'execution du playbook est terminée"
+
+...
